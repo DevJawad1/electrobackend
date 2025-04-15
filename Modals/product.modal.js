@@ -15,8 +15,8 @@ const productSchema = mongose.Schema({
     sales: Number,
     advert:String,
     address:String,
-    rating:String
+    rating:Number
 })
 
-let productTable = mongose.model('menuMProducts', productSchema)
+let productTable = mongose.model('electroProducts', productSchema)
 module.exports = productTable
