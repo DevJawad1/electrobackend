@@ -4,10 +4,10 @@ const commentContent = require('../Modals/productCOM.modal')
 const productlike = require('../Modals/productlike.modal')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer');
-const cloudinary = require('cloudinary')
+const cloudinary = require('cloudinary').v2
 const multer = require('multer');
 const otpmodal = require('../Modals/otp.modal')
-
+require('dotenv').config();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 cloudinary.config({
@@ -412,15 +412,37 @@ const duplicateAndSaveToCloudinary = async (uploadedfile) => {
   }
 };
 
-const uploadproduct = (req, res) => {
-  console.log('productupload');
+const deleteImg = (req, res) => {
   console.log(req.body);
-  let saveProduct = new productTable(req.body.newpro)
+  const imageUrl = req.body.img;
+
+  const getPublicId = (url) => {
+    const parts = url.split('/upload/')[1]; // "v1744641995/kn7hhgbruutjt0qkh91n.jpg"
+    const publicIdWithVersion = parts.split('/'); // ["v1744641995", "kn7hhgbruutjt0qkh91n.jpg"]
+    const filename = publicIdWithVersion.slice(1).join('/'); // Skip the version part
+    return filename.split('.')[0]; // Remove the .jpg or .png
+  };
+  const publicId = getPublicId(imageUrl);
+
+  cloudinary.uploader.destroy(publicId, (error, result) => {
+    if (error) {
+      console.error("Delete failed:", error);
+      return res.send({ success: false, message: "Delete failed, try again" });
+    } else {
+      console.log("Delete success:", result);
+      return res.send({ success: true, message: "Deleted Successfully" });
+    }
+  });
+};
+
+const uploadproduct = (req, res) => {
+  console.log(req.body);
+  let saveProduct = new productTable(req.body)
   saveProduct.save().then((result) => {
-    res.send({ message: "Product uploaded successfully" })
+    res.send({ success:true,message: "Product uploaded successfully" })
     console.log(result);
   }).catch((err) => {
-    res.send({ errmessage: "Product upload failed" })
+    res.send({success:false, errmessage: "Product upload failed" })
     console.log(err);
   })
 }
@@ -490,8 +512,18 @@ const storenmUpd = async (req, res) => {
 }
 
 
+const getUserProduct = (req, res)=>{
+  console.log(req.body)
+  productTable.find({ owner: req.body.userId }).then((products) => {
+    if (products) {
+      console.log(products, 'owenenenenuej');
 
-module.exports = { backendSignup, backendLogin, uploadproduct, verifyToken, like, pimgsave, saveOpt, verifyEmail, resetPassword,  getuserimg, advert, storenmUpd }
+      res.send({success:products.length>0?true:false, products})  
+    }
+  })
+}
+
+module.exports = { backendSignup, backendLogin, uploadproduct, verifyToken, like, pimgsave, deleteImg, saveOpt, verifyEmail, resetPassword,  getuserimg, advert, storenmUpd, getUserProduct }
 // addcustomer,
 // 65df0856d84971fa4066e4e3
 // 65df0856d84971fa4066e4e3

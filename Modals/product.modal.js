@@ -4,20 +4,15 @@ const mongose = require('mongoose')
 const productSchema = mongose.Schema({
     owner:String,
     productTit: String,
-    image:Array,
+    image:[String],
     price: Number,
     quantity:Number,
     category:String,
-    hot:Number,
-    comments:Number,
-    date:String,
-    dayUsed:Number,
+    wishlist:Number,
+    date:String,    
     discount:Number,
     cont:String,
-    username:String,
-    userImg:String,
     sales: Number,
-    styling: Number,
     advert:String
 })
 

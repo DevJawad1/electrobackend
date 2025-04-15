@@ -3,7 +3,9 @@ const {
     backendSignup, 
     backendLogin, 
     verifyToken,
-    // uploadproduct, 
+    uploadproduct, 
+    deleteImg,
+    getUserProduct
     // like,
     // pimgsave,
     // saveOpt,
@@ -46,7 +48,9 @@ router.get('/token', verifyToken)
 // router.post('/sendcomment', sendcomment)
 // router.post('/writecomment', writeComment)
 // router.post('/saveimg', pimgsave)
-// router.post('/uploadproduct', uploadproduct)
+router.post('/uploadproduct', uploadproduct)
+router.post('/deleteImg', deleteImg)
+router.post('/getUserProduct', getUserProduct)
 // router.post('/like', like)
 // router.post('/deletcom', deletcom)
 // router.post('/addcustomer', addcustomer)
