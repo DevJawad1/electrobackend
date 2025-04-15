@@ -20,18 +20,19 @@ const {
 // const {sendNotification, deletnotification, readedNotification} = require('../Controllers/notification.controller')
 const {userProduct, userProfile} = require('../Controllers/profile.controller')
 // const {createFlw, WebHook, verifyUserpayment, userBalance}=require('../Controllers/fluttervirtualAccount.controller')
-// const {
+const {
 //     getProductsLike,
 //     top5popularProduct, 
 //     allPopularProduct, 
-//     weeklyProducts, 
+       weeklyProducts, 
+       latestProduct,
 //     randomCategory, 
 //     recentlyCategoryBought, 
 //     userOneProduct,
 //     popularPrdCategory,
 //     getProductsCart,
 //     lessViewProduct
-// }= require('../Controllers/productalgorithm.controller')
+}= require('../Controllers/productalgorithm.controller')
 
 
 // const {savingSearch, categorySearching, productSearching, searchSuggestion, storeSearching}= require('../Controllers/Searching.contoller')
@@ -85,7 +86,8 @@ router.post('/userprofile', userProfile)
 // router.post('/top5popularProducts', top5popularProduct) 
 // router.post('/popularPrdCategory', popularPrdCategory) 
 // router.post('/allPopularProducts', allPopularProduct) 
-// router.post('/weeklyProducts', weeklyProducts) 
+router.post('/weeklyProducts', weeklyProducts) 
+router.post('/latestProduct', latestProduct) 
 // router.post('/randomCategory', randomCategory)
 // router.post('/recommendOne', recentlyCategoryBought)
 // router.post('/lessViewProduct', lessViewProduct)
