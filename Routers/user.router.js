@@ -26,6 +26,7 @@ const {
 //     allPopularProduct, 
        weeklyProducts, 
        latestProduct,
+       sortPrdByName,
 //     randomCategory, 
 //     recentlyCategoryBought, 
 //     userOneProduct,
@@ -88,6 +89,7 @@ router.post('/userprofile', userProfile)
 // router.post('/allPopularProducts', allPopularProduct) 
 router.post('/weeklyProducts', weeklyProducts) 
 router.post('/latestProduct', latestProduct) 
+router.post('/sortPrdByName', sortPrdByName) 
 // router.post('/randomCategory', randomCategory)
 // router.post('/recommendOne', recentlyCategoryBought)
 // router.post('/lessViewProduct', lessViewProduct)

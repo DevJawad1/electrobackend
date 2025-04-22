@@ -271,4 +271,61 @@ const latestProduct = async (req, res) => {
     }
 };
   
-module.exports = { top5popularProduct, allPopularProduct, weeklyProducts, randomCategory, recentlyCategoryBought, userOneProduct, popularPrdCategory, getProductsLike, getProductsCart , lessViewProduct, latestProduct}
+
+const sortPrdByName=async(req, res)=>{
+    // Example: All products
+const allProducts = await productTable.find({})
+  
+  // Function to normalize names
+  const normalizeName = (majorName) => {
+    const lower = majorName.toLowerCase();
+  
+    if (lower.includes("tv")) return "tv";
+    if (lower.includes("generator")) return "generator";
+    if (lower.includes("speaker")) return "speaker";
+    if (lower.includes("iron")) return "iron";
+    if (lower.includes("macbook")) return "macbook";
+    if (lower.includes("iphone")) return "iphone";
+    if (lower.includes("hp")) return "hp laptop";
+  
+    return lower; // fallback to original name
+  };
+  
+  // Step 1: Group by category
+  const groupedByCategory = {};
+  
+  allProducts.forEach(product => {
+    const cat = product.category;
+    if (!groupedByCategory[cat]) groupedByCategory[cat] = [];
+    groupedByCategory[cat].push(product);
+  });
+  
+  // Step 2: Inside each category, group by normalized product name
+  const finalOutput = {};
+  
+  for (const category in groupedByCategory) {
+    const products = groupedByCategory[category];
+    const nameGroup = {};
+  
+    products.forEach(prod => {
+      const normName = normalizeName(prod.majorName);
+      if (!nameGroup[normName]) {
+        nameGroup[normName] = {
+          name: normName,
+          count: 1,
+          items: [prod],
+        };
+      } else {
+        nameGroup[normName].count += 1;
+        nameGroup[normName].items.push(prod);
+      }
+    });
+  
+    finalOutput[category] = Object.values(nameGroup);
+}
+
+console.log(finalOutput);
+res.send({ success: true, sortedCategory:finalOutput });
+  
+}
+module.exports = { top5popularProduct, allPopularProduct, weeklyProducts, randomCategory, recentlyCategoryBought, userOneProduct, popularPrdCategory, getProductsLike, getProductsCart , lessViewProduct, latestProduct, sortPrdByName}
