@@ -5,6 +5,7 @@ const productSchema = mongose.Schema({
     owner:String,
     brand:String,
     productTit: String,
+    majorName: String,
     image:[String],
     price: Number,
     quantity:Number,
@@ -19,5 +20,5 @@ const productSchema = mongose.Schema({
     rating:Number
 })
 
-let productTable = mongose.model('Products', productSchema)
+let productTable = mongose.model('MenuTvItems', productSchema)
 module.exports = productTable
