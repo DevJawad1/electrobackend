@@ -3,6 +3,7 @@ const mongose = require('mongoose')
 
 const productSchema = mongose.Schema({
     owner:String,
+    brand:String,
     productTit: String,
     image:[String],
     price: Number,
@@ -18,5 +19,5 @@ const productSchema = mongose.Schema({
     rating:Number
 })
 
-let productTable = mongose.model('electroProducts', productSchema)
+let productTable = mongose.model('Products', productSchema)
 module.exports = productTable
