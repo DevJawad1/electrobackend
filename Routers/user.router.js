@@ -29,7 +29,7 @@ const {
        sortPrdByName,
 //     randomCategory, 
 //     recentlyCategoryBought, 
-//     userOneProduct,
+    userOneProduct,
 //     popularPrdCategory,
 //     getProductsCart,
 //     lessViewProduct
@@ -70,7 +70,7 @@ router.post('/getUserProduct', getUserProduct)
 
 router.post('/userprofile', userProfile)
 // router.post('/userproduct', userProduct)
-// router.post('/userOneproduct', userOneProduct)
+router.post('/oneproduct', userOneProduct)
 // router.post('/cart', userCart)
 // router.post('/deletecart', deleteCart)
 

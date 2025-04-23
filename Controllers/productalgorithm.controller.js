@@ -4,8 +4,6 @@ const cartTable = require('../Modals/addtocart.modal')
 const alluser = require('../Modals/user.modal')
 const allLike = require('../Modals/productlike.modal.js')
 
-
-
 const getProductsLike = async (req, res) => {
     try {
         console.log("product like server")
@@ -205,15 +203,20 @@ const recentlyCategoryBought=(req, res)=>{
 }
 
 const userOneProduct =async (req,res) =>{
-    console.log(req.body);
-    const {productId, user} = req.body
-    let findProduct = await productTable.findOne({_id:productId})
-    let findProductCart = await cartTable.findOne({product:productId, buyer:user})
-    let findProductLike = await allLike.findOne({user:user, product:productId})
-    if(findProduct){
-        let seller= await alluser.findOne({_id:findProduct.owner})
-        let sellerStorename = seller.storename
-        res.status(200).json({product:findProduct, status:true, productCart:findProductCart?true:false, sellerstoreName:sellerStorename, productLike:findProductLike?true:false})
+    try {
+        console.log(req.body);
+        const {productId, user} = req.body
+        let findProduct = await productTable.findOne({_id:productId})
+        let findProductCart = await cartTable.findOne({product:productId, buyer:user})
+        let findProductLike = await allLike.findOne({user:user, product:productId})
+        if(findProduct){
+            let seller= await alluser.findOne({_id:findProduct.owner})
+            let sellerStorename = seller.storename
+            res.status(200).json({product:findProduct, status:true, productCart:findProductCart?true:false, sellerstoreName:sellerStorename, productLike:findProductLike?true:false})
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({status:false, msg:"Error finding Product, Reload the page"})
     }
 }
 
