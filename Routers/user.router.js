@@ -5,7 +5,8 @@ const {
     verifyToken,
     uploadproduct, 
     deleteImg,
-    getUserProduct
+    getUserProduct,
+    storeAddress,
     // like,
     // pimgsave,
     // saveOpt,
@@ -15,7 +16,7 @@ const {
     // advert,
     // storenmUpd,
 } = require ('../Controllers/user.controller')
-// const {userCart, deleteCart, addtocart,} = require('../Controllers/cart.controller')
+const {userCart, deleteCart, addtocart, getParticularCart} = require('../Controllers/cart.controller')
 // const {sendcomment, writeComment, deletcom, reportComment} = require('../Controllers/comment.controller')
 // const {sendNotification, deletnotification, readedNotification} = require('../Controllers/notification.controller')
 const {userProduct, userProfile} = require('../Controllers/profile.controller')
@@ -29,7 +30,8 @@ const {
        sortPrdByName,
 //     randomCategory, 
 //     recentlyCategoryBought, 
-    userOneProduct,
+       userOneProduct,
+       
 //     popularPrdCategory,
 //     getProductsCart,
 //     lessViewProduct
@@ -53,6 +55,7 @@ router.get('/token', verifyToken)
 router.post('/uploadproduct', uploadproduct)
 router.post('/deleteImg', deleteImg)
 router.post('/getUserProduct', getUserProduct)
+router.post('/storeAddress', storeAddress)
 // router.post('/like', like)
 // router.post('/deletcom', deletcom)
 // router.post('/addcustomer', addcustomer)
@@ -71,8 +74,10 @@ router.post('/getUserProduct', getUserProduct)
 router.post('/userprofile', userProfile)
 // router.post('/userproduct', userProduct)
 router.post('/oneproduct', userOneProduct)
-// router.post('/cart', userCart)
-// router.post('/deletecart', deleteCart)
+router.post('/cart', userCart)
+router.post('/deletecart', deleteCart)
+router.post('/addcart', addtocart)
+router.post('/PTcart', getParticularCart)
 
 // router.post('/virtualaccount', createFlw)
 // router.post('/webhook', WebHook)

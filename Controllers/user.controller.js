@@ -523,7 +523,19 @@ const getUserProduct = (req, res)=>{
   })
 }
 
-module.exports = { backendSignup, backendLogin, uploadproduct, verifyToken, like, pimgsave, deleteImg, saveOpt, verifyEmail, resetPassword,  getuserimg, advert, storenmUpd, getUserProduct }
+const storeAddress= async(req,res)=>{
+  const {owner} = req.body
+  try {
+    const seller = await setDatabase.findOne({_id:owner})
+    // console.log(owner, seller)
+    res.status(200).json({address:seller.address, status:true})
+  } catch (error) {
+     console.log(error)    
+     res.status(400).json({address:"Not found, relaod the page", status :false})
+  }
+
+}
+module.exports = { backendSignup, backendLogin, uploadproduct, verifyToken, like, pimgsave, deleteImg, saveOpt, verifyEmail, resetPassword,  getuserimg, advert, storenmUpd, getUserProduct, storeAddress }
 // addcustomer,
 // 65df0856d84971fa4066e4e3
 // 65df0856d84971fa4066e4e3
