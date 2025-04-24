@@ -34,7 +34,7 @@ const addtocart = async (req, res) => {
         const cartSaveResult = await saveCart.save();
 
         console.log('cartSave', cartSaveResult);
-        res.send({ quantity: buyer.quantity, message: "Add to cart", status: true });
+        res.send({ quantity: cartSaveResult.quantity, message: "Add to cart", status: true });
       }
     }
   } catch (error) {
@@ -120,6 +120,32 @@ const deleteCart = (req, res) => {
     });
 }
 
+const realDelete = async (req, res) => {
+  try {
+    const { product, buyer } = req.body
 
+    console.log(req.body)
+    const deleteCart = await cartTable.findOneAndDelete({ product, buyer })
 
-module.exports = { userCart, deleteCart, addtocart,getParticularCart }
+    if (deleteCart) {
+      return res.status(200).send({
+        status: true,
+        msg: "Product deleted from cart"
+      })
+    } else {
+      return res.status(404).send({
+        status: false,
+        msg: "This product is not in your cart anymore"
+      })
+    }
+
+  } catch (error) {
+    console.error("Error deleting cart item:", error)
+    return res.status(500).send({
+      status: false,
+      msg: "Something went wrong while deleting the product"
+    })
+  }
+}
+
+module.exports = { userCart, deleteCart, addtocart,getParticularCart, realDelete }
