@@ -528,7 +528,7 @@ const storeAddress= async(req,res)=>{
   try {
     const seller = await setDatabase.findOne({_id:owner})
     // console.log(owner, seller)
-    res.status(200).json({address:seller.address, status:true})
+    res.status(200).json({vendor:seller, status:true})
   } catch (error) {
      console.log(error)    
      res.status(400).json({address:"Not found, relaod the page", status :false})
