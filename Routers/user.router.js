@@ -32,7 +32,7 @@ const {
 //     recentlyCategoryBought, 
        userOneProduct,
        
-//     popularPrdCategory,
+       popularPrdCategory,
 //     getProductsCart,
 //     lessViewProduct
 }= require('../Controllers/productalgorithm.controller')
@@ -90,7 +90,7 @@ router.post('/realDelete', realDelete)
 // router.post('/getProductsLike', getProductsLike) 
 // router.post('/getProductsCart', getProductsCart) 
 // router.post('/top5popularProducts', top5popularProduct) 
-// router.post('/popularPrdCategory', popularPrdCategory) 
+router.post('/popularPrdCategory', popularPrdCategory) 
 // router.post('/allPopularProducts', allPopularProduct) 
 router.post('/weeklyProducts', weeklyProducts) 
 router.post('/latestProduct', latestProduct) 
