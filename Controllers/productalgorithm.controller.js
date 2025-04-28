@@ -333,24 +333,54 @@ res.send({ success: true, sortedCategory:finalOutput });
 }
 
 
+// const productLike = async (req, res) => {
+//     try {
+//         const { user, product, getter } = req.body;
+//         const prd = await allLike.findOne({ user, product });
+
+        
+//         if (prd) {
+//             if(!getter){
+//                 await prd.deleteOne(); 
+//                 return res.status(200).json({ msg: "Removed from Wishlist", like:false });
+//             }
+//         } else {
+//             const saveLike = new allLike({ user, product });
+//             await saveLike.save();
+//             return res.status(200).json({ msg: "Added to Wishlist", like:true });
+//         }
+        
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: "Something went wrong" });
+//     }
+// };
+
 const productLike = async (req, res) => {
     try {
         const { user, product, getter } = req.body;
         const prd = await allLike.findOne({ user, product });
 
-        if (prd && !getter  ) {
-            await prd.deleteOne(); 
-            return res.status(200).json({ msg: "Removed from Wishlist", like:false });
-        } else {
-            const saveLike = new allLike({ user, product });
-            await saveLike.save();
-            return res.status(200).json({ msg: "Added to Wishlist", like:true });
-        }
+        if (prd) {
+            if (!getter) {
+                await prd.deleteOne();
+                return res.status(200).json({ msg: "Removed from Wishlist", like: false });
+            } else {
+                // If getter is true and prd exists, just return like true
+                return res.status(200).json({ msg: "Already in Wishlist", like: true });
+            }
+        } 
+        
+        // If no existing like found, save new like
+        const saveLike = new allLike({ user, product });
+        await saveLike.save();
+        return res.status(200).json({ msg: "Added to Wishlist", like: true });
         
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Something went wrong" });
     }
 };
+
 
 module.exports = { top5popularProduct, allPopularProduct, weeklyProducts, randomCategory, recentlyCategoryBought, userOneProduct, popularPrdCategory, getProductsLike, getProductsCart , lessViewProduct, latestProduct, sortPrdByName, productLike}
