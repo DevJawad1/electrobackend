@@ -331,4 +331,26 @@ console.log(finalOutput);
 res.send({ success: true, sortedCategory:finalOutput });
   
 }
+
+
+const productLike = async (req, res) => {
+    try {
+        const { user, product } = req.body;
+        const prd = await allLike.findOne({ user, product });
+
+        if (prd) {
+            await prd.deleteOne(); 
+            return res.status(200).json({ msg: "Removed from Wishlist" });
+        } else {
+            const saveLike = new allLike({ user, product });
+            await saveLike.save();
+            return res.status(200).json({ msg: "Added to Wishlist" });
+        }
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
+    }
+};
+
 module.exports = { top5popularProduct, allPopularProduct, weeklyProducts, randomCategory, recentlyCategoryBought, userOneProduct, popularPrdCategory, getProductsLike, getProductsCart , lessViewProduct, latestProduct, sortPrdByName}
