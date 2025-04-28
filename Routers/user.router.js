@@ -56,6 +56,7 @@ router.get('/token', verifyToken)
 // router.post('/saveimg', pimgsave)
 router.post('/uploadproduct', uploadproduct)
 router.post('/deleteImg', deleteImg)
+
 router.post('/getUserProduct', getUserProduct)
 router.post('/storeAddress', storeAddress)
 router.post('/productLike', productLike)
