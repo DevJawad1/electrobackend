@@ -353,4 +353,4 @@ const productLike = async (req, res) => {
     }
 };
 
-module.exports = { top5popularProduct, allPopularProduct, weeklyProducts, randomCategory, recentlyCategoryBought, userOneProduct, popularPrdCategory, getProductsLike, getProductsCart , lessViewProduct, latestProduct, sortPrdByName}
+module.exports = { top5popularProduct, allPopularProduct, weeklyProducts, randomCategory, recentlyCategoryBought, userOneProduct, popularPrdCategory, getProductsLike, getProductsCart , lessViewProduct, latestProduct, sortPrdByName, productLike}

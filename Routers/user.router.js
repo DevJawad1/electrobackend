@@ -33,8 +33,10 @@ const {
        userOneProduct,
        
        popularPrdCategory,
+       productLike,
 //     getProductsCart,
 //     lessViewProduct
+
 }= require('../Controllers/productalgorithm.controller')
 
 
@@ -56,6 +58,7 @@ router.post('/uploadproduct', uploadproduct)
 router.post('/deleteImg', deleteImg)
 router.post('/getUserProduct', getUserProduct)
 router.post('/storeAddress', storeAddress)
+router.post('/productLike', productLike)
 // router.post('/like', like)
 // router.post('/deletcom', deletcom)
 // router.post('/addcustomer', addcustomer)
