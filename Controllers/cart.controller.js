@@ -155,7 +155,7 @@ const userWishList = (req, res) => {
   console.log(req.body.buyer);
   const buyer = req.body.buyer;
 
-  likeTable.find({ buyer: buyer })
+  likeTable.find({ user: buyer })
     .then((result) => {
       if (result.length > 0) {
         const promises = result.map((item) => {
