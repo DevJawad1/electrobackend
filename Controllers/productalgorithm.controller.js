@@ -335,10 +335,10 @@ res.send({ success: true, sortedCategory:finalOutput });
 
 const productLike = async (req, res) => {
     try {
-        const { user, product } = req.body;
+        const { user, product, getter } = req.body;
         const prd = await allLike.findOne({ user, product });
 
-        if (prd) {
+        if (prd && !getter  ) {
             await prd.deleteOne(); 
             return res.status(200).json({ msg: "Removed from Wishlist", like:false });
         } else {
