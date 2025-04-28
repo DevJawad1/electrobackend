@@ -16,7 +16,7 @@ const {
     // advert,
     // storenmUpd,
 } = require ('../Controllers/user.controller')
-const {userCart, deleteCart, addtocart, getParticularCart, realDelete} = require('../Controllers/cart.controller')
+const {userCart, deleteCart, addtocart, getParticularCart, realDelete, userWishList} = require('../Controllers/cart.controller')
 // const {sendcomment, writeComment, deletcom, reportComment} = require('../Controllers/comment.controller')
 // const {sendNotification, deletnotification, readedNotification} = require('../Controllers/notification.controller')
 const {userProduct, userProfile} = require('../Controllers/profile.controller')
@@ -60,6 +60,7 @@ router.post('/deleteImg', deleteImg)
 router.post('/getUserProduct', getUserProduct)
 router.post('/storeAddress', storeAddress)
 router.post('/productLike', productLike)
+router.post('/wishlist', userWishList)
 // router.post('/like', like)
 // router.post('/deletcom', deletcom)
 // router.post('/addcustomer', addcustomer)

@@ -3,6 +3,8 @@ const productTable = require('../Modals/product.modal')
 let userTable = require('../Modals/user.modal')
 let buyingTable = require('../Modals/brought.modal')
 let historyTable = require('../Modals/history.modal')
+
+const likeTable = require('../Modals/productlike.modal')
 const addtocart = async (req, res) => {
   try {
     const productid = req.body.product;
@@ -148,4 +150,39 @@ const realDelete = async (req, res) => {
   }
 }
 
-module.exports = { userCart, deleteCart, addtocart,getParticularCart, realDelete }
+
+const userWishList = (req, res) => {
+  console.log(req.body.buyer);
+  const buyer = req.body.buyer;
+
+  likeTable.find({ buyer: buyer })
+    .then((result) => {
+      if (result.length > 0) {
+        const promises = result.map((item) => {
+          return productTable.findById(item.product)
+            .then((prodfound) => {
+              if (prodfound) {
+                return prodfound;
+              }
+            });
+        });
+
+        Promise.all(promises)
+          .then((products) => {
+            res.send({ status:true, message: "This is your wishlist products", cart: products, buyer: buyer });
+          })
+          .catch((err) => {
+            console.log('Error occur finding cart ', err);
+            res.status(500).send('Internal Server Error');
+          });
+      } else {
+        console.log('wishlist is empty');
+        res.send({status:false, message: 'Your wishlist is empty', buyer: buyer });
+      }
+    })
+    .catch((err) => {
+      console.log('Error occur finding cart ', err);
+      res.status(500).send('Internal Server Error');
+    });
+};
+module.exports = { userCart, deleteCart, addtocart,getParticularCart, realDelete , userWishList}
