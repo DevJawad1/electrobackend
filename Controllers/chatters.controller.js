@@ -15,23 +15,23 @@ const chatter = async (req, res) => {
       if (existingChat1.purpose !== purpose) {
         existingChat1.purpose = purpose;
         await existingChat1.save(); 
-        return res.status(200).json({ updated: true });
+        return res.status(200).json({ updated: true, status:true });
       } else {
-        return res.status(200).json({ save: true });
+        return res.status(200).json({ save: true, status:true });
       }
     } else if (existingChat2) {
       if (existingChat2.purpose !== purpose) {
         existingChat2.purpose = purpose;
         await existingChat2.save(); 
-        return res.status(200).json({ updated: true });
+        return res.status(200).json({ updated: true, status:true });
       } else {
-        return res.status(200).json({ save: true });
+        return res.status(200).json({ save: true, status:true });
       }
     } else {
       // No existing chat found in either direction — maybe create a new one?
       const newChat = new chatters({ chatter1, chatter2, purpose });
       await newChat.save();
-      return res.status(201).json({ created: true });
+      return res.status(201).json({ created: true, status:true });
     }
     
     const newChat = new chatters(req.body);
@@ -95,5 +95,39 @@ const chatterList = async (req, res) => {
 };
 
 
+const getPurpose = async(req,res)=>{
+  const {user,  purpose} = req.body
 
-module.exports = { chatter, chatterList };
+  try {
+    if(purpose==""){
+      res.status(200).json({
+        status: true,
+        message: null
+      });
+    }
+      const prd = await productTable.findOne({_id:purpose})
+      if(prd.owner==user){
+        res.status(200).json({
+          status: true,
+          message: `Selling of ${prd.productTit} worth of ${prd.price} to this buyer`
+        });
+      }else{
+        res.status(200).json({
+          status: true,
+          message: `Buying of ${prd.productTit} worth of ${prd.price} from this vendor`
+        });
+      }
+    
+  } catch (error) {
+    console.log(error)
+    res.status(200).json({
+      status: false,
+      message: `Error getting purpose`
+    });
+  }
+  
+
+}
+
+
+module.exports = { chatter, chatterList, getPurpose };

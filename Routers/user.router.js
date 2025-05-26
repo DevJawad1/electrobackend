@@ -43,7 +43,7 @@ const {
 
 // const {chatter, chatterList } = require('../Controllers/chatters.controller')
 
-const {chatter, chatterList} = require('../Controllers/chatters.controller')
+const {chatter, chatterList, getPurpose} = require('../Controllers/chatters.controller')
 
 // const {savingSearch, categorySearching, productSearching, searchSuggestion, storeSearching}= require('../Controllers/Searching.contoller')
 // const {addcustomer, getAddedCustomer} = require('../Controllers/addCustomer.modal')
@@ -53,6 +53,7 @@ const router = express.Router()
 
 router.post('/chatter', chatter)
 router.post('/chatterList', chatterList)
+router.post('/purpose', getPurpose)
 
 router.post('/register', backendSignup)
 router.post('/login', backendLogin)
